@@ -1,18 +1,19 @@
-class ATM:#First letter of class name should be capitalized
-    def __init__(self): #Same as constructor of typescript
-        self.balance = 5000#variables in class are called attributes or properties
+import inquirer
+import pyfiglet
+class ATM:  # First letter of class name should be capitalized
+    def __init__(self):  # Constructor (same as ts/js)
+        self.balance = 5000  # variables in class are called attributes or properties
         self.pin = 1234
 
-    def check_pin(self, input_pin):#functions in class are called methods
-        '''Check if the input PIN is correct.''' #Docstring helps to debug the code using help function
-        return input_pin == self.pin# this will return True / False based on the condition
+    def check_pin(self, input_pin): # functions in class are called methods
+        '''Check if the input PIN is correct.'''  #Docstring helps to debug the code using help function
+        return input_pin == self.pin # this will return True / False based on the condition
 
-    def check_balance(self):#self must be the first parameter of every method in a class
+    def check_balance(self): #self must be the first parameter of every method in a class
         '''Display the current balance.'''
         print(f"Your current balance is: {self.balance} rupees")
 
     def deposit(self, amount):
-
         if amount <= 0:
             print("Enter a valid amount.")
         else:
@@ -39,24 +40,32 @@ class ATM:#First letter of class name should be capitalized
             return #return will terminate the program so that no one can access the ATM
 
         while True:
-            print("\nWelcome to the ATM!")
-            print("Select an option:")
-            # Menu options
-            print("\n1. Check Balance\n2. Deposit\n3. Withdraw\n4. Exit")
-            choice = input("Choose option: ")
+            print(pyfiglet.figlet_format("Welcome", font="starwars", justify="center", width=80))
+            questions = [inquirer.List('choice', message="Select an option:", choices=[
+                "Check Balance",
+                "Deposit",
+                "Withdraw",
+                "Exit"
+            ])]
+            answers = inquirer.prompt(questions)
+            choice = answers['choice']
 
-            if choice == '1':
+            if choice == "Check Balance":
                 self.check_balance()
-            elif choice == '2':
-                amount = int(input("Enter amount to deposit: "))
-                self.deposit(amount)
-            elif choice == '3':
-                amount = int(input("Enter amount to withdraw: "))
-                self.withdraw(amount)
-            elif choice == '4':
+            elif choice == "Deposit":
+                try:
+                    amount = int(input("Enter amount to deposit: "))
+                    self.deposit(amount)
+                except ValueError:
+                    print("Please enter a valid number.")
+            elif choice == "Withdraw":
+                try:
+                    amount = int(input("Enter amount to withdraw: "))
+                    self.withdraw(amount)
+                except ValueError:
+                    print("Please enter a valid number.")
+            elif choice == "Exit":
                 print("Thank you for using the ATM.")
                 break
-            else:
-                print("Invalid option.")
 
 ATM().run()
