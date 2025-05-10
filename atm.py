@@ -1,8 +1,7 @@
 import inquirer
 import pyfiglet
 from colorama import Fore, Style, init
-
-
+init(autoreset=True) # Automatically reset color after each print
 class ATM:  # First letter of class name should be capitalized
     def __init__(self):  # Constructor (same as ts/js)
         self.balance = 5000  # variables in class are called attributes or properties
@@ -20,24 +19,24 @@ class ATM:  # First letter of class name should be capitalized
     def deposit(self, amount):
         if amount <= 0:
             print(Fore.LIGHTRED_EX + "Enter a valid amount.")
-            print(Style.RESET_ALL)
+            # print(Style.RESET_ALL)
         else:
             self.balance += amount
             print(f"{Fore.GREEN}{amount} deposited successfully.💲💲💲")
-            print(Style.RESET_ALL)
+            # print(Style.RESET_ALL)
             print(f"Your current balance is: {Fore.YELLOW} {self.balance} rupees 💵")
 
     def withdraw(self, amount):
         if amount <= 0:
             print(Fore.LIGHTRED_EX + "Enter a valid amount.")
-            print(Style.RESET_ALL)
+            # print(Style.RESET_ALL)
         elif amount > self.balance:
             print(Fore.LIGHTRED_EX + "Insufficient balance.")
-            print(Style.RESET_ALL)
+            # print(Style.RESET_ALL)
         else:
             self.balance -= amount
             print(f"{Fore.LIGHTMAGENTA_EX}{amount} withdrawn successfully.💸💸💸")
-            print(Style.RESET_ALL)
+            # print(Style.RESET_ALL)
             print(f"Your current balance is: {Fore.YELLOW} {self.balance} rupees 💵")
 
     def run(self):  # this is out of the loop bcz it allows the user to enter the pin only once
@@ -47,7 +46,7 @@ class ATM:  # First letter of class name should be capitalized
         if not self.check_pin(pin):
             print(Fore.LIGHTRED_EX + "Incorrect PIN.")
             print(Fore.LIGHTRED_EX + "You cannot access the ATM.")
-            print(Style.RESET_ALL)
+            # print(Style.RESET_ALL)
             return  # return will terminate the program so that no one can access the ATM
         welcome_text = pyfiglet.figlet_format("Welcome", font="starwars", justify="center", width=80)
         print(Fore.CYAN + welcome_text + Style.RESET_ALL)  
@@ -69,17 +68,17 @@ class ATM:  # First letter of class name should be capitalized
                     self.deposit(amount)
                 except ValueError:
                     print(Fore.LIGHTRED_EX + "Please enter a valid number.")
-                    print(Style.RESET_ALL)
+                    # print(Style.RESET_ALL)
             elif choice == "Withdraw":
                 try:
                     amount = int(input("Enter amount to withdraw: "))
                     self.withdraw(amount)
                 except ValueError:
                     print(Fore.LIGHTRED_EX + "Please enter a valid number.")
-                    print(Style.RESET_ALL)
+                    # print(Style.RESET_ALL)
             elif choice == "Exit":
                 print(Fore.GREEN + "Thank you for using the ATM.")
-                print(Style.RESET_ALL)
+                # print(Style.RESET_ALL)
                 break
 
 ATM().run()
